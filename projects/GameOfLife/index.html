@@ -1,0 +1,233 @@
+<html>
+	<head>
+		<title>Game of Life</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?..."></script>
+		<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML"></script>
+		<style>
+			body{
+				margin: 0px;
+			}
+
+			#menu_wrapper{
+				position: absolute;
+				z-index: 1001;
+				width: 500px;
+				padding: 5px;
+			}
+
+			canvas{
+				position: absolute;
+			}
+
+			#menu{
+				color: black;
+				width: 100%;
+				height: 100%;
+				padding: 10px;
+				border-radius: 3px;
+				margin: auto;
+			}
+		</style>
+	</head>
+	<body>
+
+		<div id="menu_wrapper">
+			<div id="menu">
+				<form class="form-horizontal">
+					
+					<h4>Controls</h4>
+					<p>Click to change cell state.</p>
+
+					<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+					<button id="randomize" type="button" class="btn btn-default">Randomize</button>
+					</div>
+					</div>
+
+					<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+					<button id="run" type="button" class="btn btn-default">Run</button>
+					</div>
+					</div>
+
+					<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+					<button id="clear" type="button" class="btn btn-default">Clear</button>
+					</div>
+					</div>
+
+					<h3>About</h3>
+					<p>
+					</p>
+				</form>
+			</div>
+		</div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.8/p5.min.js"></script>
+		<script>
+
+			//Cell data containers and buffer
+			var cellMatrix = [];
+			var nextCellMatrix = [];
+
+			//Dimensions of tiles
+			var tileWidth = 20;
+			var tileHeight = 20;
+
+			//Number of tiles
+			var cellMatrixWidth = window.innerWidth / tileWidth;
+			var cellMatrixHeight = window.innerHeight / tileHeight;
+
+			//Canvas object
+			var canvas;
+
+			//Controls
+			var run = false;
+
+			var run_button = document.getElementById("run");
+			var randomize_button = document.getElementById("randomize");
+			var clear_button = document.getElementById("clear");
+
+			run_button.addEventListener("mousedown", function(e){
+				run = !run;
+			});
+
+			randomize_button.addEventListener("mousedown", function(e){
+				randomizeMatrix(cellMatrix);
+			});
+
+			clear_button.addEventListener("mousedown", function(e){
+				cellMatrix = createCellMatrix(cellMatrixWidth, cellMatrixHeight);
+			});
+
+			//Create empty data structure
+			var createCellMatrix = function(width, height){
+
+				var matrix = [];
+
+				for(var i = 0; i < width; i++){
+					matrix.push([]);
+					for(var j = 0; j < height; j++){
+						matrix[i].push(0);
+					}
+				}
+
+				return matrix;
+			};
+
+			//Randomize a cell matrix
+			var randomizeMatrix = function(cellMatrix){
+				for(var i = 0; i < cellMatrixWidth; i++){
+					for(var j = 0; j < cellMatrixHeight; j++){
+						var r = Math.round(Math.random());
+						cellMatrix[i][j] = r;
+					}
+				}
+			};
+
+			//Get cell state from current matrix
+			var getCell = function(x, y){
+
+				//Boundry check
+				if(x > 0 && x < cellMatrixWidth && y > 0 && y < cellMatrixHeight){
+					return cellMatrix[x][y];
+				}
+
+				return 0;
+			};
+
+			//Get the number of live cells neighbooring a cell
+			var getNeighboors = function(x, y){
+				var n = 0;
+
+				n += getCell(x - 1, y - 1);
+				n += getCell(x, y - 1);
+				n += getCell(x + 1, y - 1);
+				n += getCell(x + 1, y);
+				n += getCell(x + 1, y + 1);
+				n += getCell(x, y + 1);
+				n += getCell(x - 1, y + 1);
+				n += getCell(x - 1, y);
+
+				return n;
+			};
+
+			//Update simulation and create new cell matrix
+			var step = function(){
+
+				nextCellMatrix = createCellMatrix(cellMatrixWidth, cellMatrixHeight);
+
+				for(var i = 0; i < cellMatrixWidth; i++){
+					for(var j = 0; j < cellMatrixHeight; j++){
+
+						var n = getNeighboors(i, j);
+						var state = getCell(i, j);
+
+						if(state == 1){
+							if(n < 2 || n > 3)nextCellMatrix[i][j] = 0;
+							if(n == 2 || n == 3)nextCellMatrix[i][j] = 1;
+						}
+					}
+				}
+
+				for(var i = 0; i < cellMatrixWidth; i++){
+					for(var j = 0; j < cellMatrixHeight; j++){
+
+						var n = getNeighboors(i, j);
+						var state = getCell(i, j);
+
+						if(state == 0 && n == 3)nextCellMatrix[i][j] = 1;
+					}
+				}
+
+				cellMatrix = nextCellMatrix.slice();
+			};
+
+			var canvas;
+
+			var setup = function(){
+				canvas = createCanvas(window.innerWidth, window.innerHeight);
+				cellMatrix = createCellMatrix(cellMatrixWidth, cellMatrixHeight);
+
+				canvas.canvas.addEventListener("click", function(e){
+					var state = cellMatrix[floor(mouseX / tileWidth)][floor(mouseY / tileHeight)];
+					cellMatrix[floor(mouseX / tileWidth)][floor(mouseY / tileHeight)] = !state;
+				});
+			};
+
+			var frames = 0;
+
+			var draw = function(){
+
+				//Control delay
+				if(run){
+					frames++;
+					if(frames >= 5){
+						step();
+						frames = 0;
+					}
+				}
+
+				clear();
+				for(var i = 0; i < cellMatrixWidth; i++){
+					for(var j = 0; j < cellMatrixHeight; j++){
+
+						noFill();
+						stroke(245);
+						rect(i * tileWidth, j * tileHeight, tileWidth, tileHeight);
+
+						if(cellMatrix[i][j] == 1){
+							stroke(120);
+							fill(120);
+							rect(i * tileWidth, j * tileHeight, tileWidth, tileHeight);
+							noFill();
+						}
+					}
+				}
+			};
+		</script>
+	</body>
+</html>

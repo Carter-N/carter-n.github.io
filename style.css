@@ -1,0 +1,28 @@
+#page_wrapper{
+	margin-left: 30%;
+	margin-right: 30%;
+}
+
+.gallery-title{
+    font-size: 36px;
+    text-align: center;
+    font-weight: 500;
+    margin-bottom: 70px;
+}
+
+.gallery-title:after {
+    content: "";
+    position: absolute;
+    width: 80%;
+    left: 10%;
+    height: 45px;
+    border-bottom: 1px solid #5e5e5e;
+}
+
+.port-image{
+    width: 100%;
+}
+
+.project{
+    margin-bottom: 30px;
+}

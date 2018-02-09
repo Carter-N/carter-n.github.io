@@ -1,0 +1,78 @@
+<html>
+	<head>
+		<title>About</title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.24/p5.min.js"></script>
+		<script type="text/x-mathjax-config">
+			MathJax.Hub.Config({
+			  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+			});
+		</script>
+		<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+	</head>
+	<body>
+		
+		<div class="col-md-2"></div>
+		<div style="background-color: #F2F2F2;" class="col-md-8">
+
+			<h1>Fourier Transforms</h1>
+
+			<hr/>
+
+			<h2>Introduction</h2>
+			<h4>
+				The fourier transform is a model with a large variety of applications including 
+				quantum mechanics, signal analysis and the evaluation of differential equations.
+			</h4>
+
+			<h2>Structure</h2>
+			<h4>
+				A basic fourier transform is continuos function that can be evaluated for any real number $\zeta$. 
+				The shape of the function is determined by a series of magnitudes, denoted as $m$, frequencies, denoted as
+				$\lambda$, and inital angles, denoted as $\theta$.    
+			</h4>
+
+			<h2>Function of a fourier transform</h2>
+			<h4>
+				The function of a fourier transform is a sum of sines and cosines. The visualization uses circles to represent
+				a combination of a magnitude, inital theta and frequency. The function itself can take the form of: <br> 
+				<center style="font-size: 26px;">
+
+					$$\hat{f}(\zeta) = \sum_{i=1}^{n}m_i * sin(t\lambda_i + \theta_i)$$ <br>
+					$t \epsilon [0, 2\pi]$. <br><br>
+				</center>
+				When $t = 0.5$, $\vec{a}$ will be halfway between $\vec{c_n}$ and $\vec{c_{n - 1}}$, and when $t = 0$, $\vec{a}$
+				will equal $\vec{c_{n - 1}}$. So to create smooth intepolation, $t$ can be increased by a small amount every frame during the animation.
+			</h4>
+
+			<h2>Interpolation between three points</h2>
+			<h4>
+				To interpolate between between any two, two dimensional points a parametric equation can be used. To intepolate between any
+				three, two dimensional points, multiple parametric equations can be used. If the result of this interpolation were animated, the path $\vec{a}$
+				follows, is a curve. To find the position of a at any $t$, it is useful to define the parametric equation as the function: <br><br>
+				<center style="font-size: 26px;">
+
+					\(f_{\vec{c_1}, \vec{c_2}}(t) = \vec{c_1} + t(\vec{c_1} - \vec{c_2})\)<br>
+					$t \epsilon [0, 1]$.
+				</center><br><br>
+
+				With the control points $\vec{c_1}, \vec{c_2}, and \vec{c_3}$, $\vec{a}$ is equal to: <br><br>
+
+				<center style="font-size: 26px;">
+					$\vec{p_1} = f_{\vec{c_1}, \vec{c_2}}(t)$<br>
+					$\vec{p_2} = f_{\vec{c_2}, \vec{c_3}}(t)$<br>
+					$\vec{a} = f_{\vec{p_1}, \vec{p_2}}(t)$.
+				</center><br><br>
+			</h4>
+		</div>
+
+		
+	</body>
+</html>

@@ -1,0 +1,182 @@
+<html>
+	<head>
+		<title>Bezier Curve</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+
+		<style>
+			body{
+				margin: 0px;
+			}
+
+			#menu_wrapper{
+				position: absolute;
+				z-index: 1001;
+				width: 500px;
+				padding: 5px;
+			}
+
+			canvas{
+				position: absolute;
+			}
+
+			#menu{
+				color: black;
+				width: 100%;
+				height: 100%;
+				padding: 10px;
+				border-radius: 3px;
+				margin: auto;
+			}
+		</style>
+	</head>
+	<body>
+
+		<div id="menu_wrapper">
+			<div id="menu">
+				<form class="form-horizontal">
+					<h3>Controls</h3>
+					<p>Click to add control points, clear button removes points.</p>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<div class="checkbox">
+								<label>
+									<input id="draw_points" type="checkbox"> Draw points
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<div class="checkbox">
+								<label>
+									<input id="draw_lines" type="checkbox"> Draw lines
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<button id="clear" type="button" class="btn btn-default">Clear</button>
+						</div>
+					</div>
+					<h3>About</h3>
+					<p>
+					The bezier curve creates smooth paths between two points by solving a series of simple equations. The equations take the form of <br>
+
+					<center>
+						`vec Q = vec a + t(vec a - vec b)` <br>
+						`t epsilon [0,1]`
+					</center>
+
+					and smoothly interpolate between two points `vec a` and `vec b` by slowly increasing `t` from `0` to `1`. At each point during the animation,
+					each pair of points is substituted for `vec a` and `vec b` and a new set of points is created from resulting `vec Q`'s. The process then repeats until a single point is left
+					which is the next point on the curve. After the curve point is calculated `t` is slightly increases and the calculation begins again.
+
+					</p>
+				</form>
+			</div>
+		</div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.8/p5.min.js"></script>
+		<script>
+			//Animation
+			var points = [];				//control points
+			var t = 0; 						//animation time, t = [0, 1]
+
+			//Drawing
+			var canvas = null;				//Canvas to draw to
+			var curveCanvas = null;			//seperate canvas to draw the curve to
+			var lastCurvePoint = null; 		//refrence to the last computed curve point
+			var curvePoint = null;			//refrence to the current computed curve point
+
+			//Controls
+			var clearButton = document.getElementById("clear");
+			var drawLinesControl = document.getElementById("draw_lines");
+			var drawPointsControl = document.getElementById("draw_points");
+			drawLinesControl.checked = true;
+			drawPointsControl.checked = true;
+
+			$("#toggle").click(function() {
+				$(this).toggleClass("on");
+				$("#menu").slideToggle(50);
+			});
+
+			//Draw a point from a vector and color
+			var drawPoint = function(point, color){
+				fill(color[0], color[1], color[2]);
+				ellipse(point.x, point.y, 5, 5);
+				noFill();
+			};
+
+			//Reset animation
+			var clearCanvas = function(){
+				curveCanvas.clear();
+				lastCurvePoint = null;
+				t = 0;
+			};
+
+			//Recursivley compute curve with control points
+			var bezierCurve = function(controlPoints){
+				if(controlPoints.length < 1)return;
+				var nextPoints = [];
+
+				//Last point computed added to curve
+				if(controlPoints.length == 1){
+					curvePoint = controlPoints[0];
+					if(lastCurvePoint){
+						fill(255, 0, 0);
+						drawPoint(curvePoint, [255, 0, 0]);
+						curveCanvas.stroke(255, 0, 0);
+						curveCanvas.line(lastCurvePoint.x, lastCurvePoint.y, curvePoint.x, curvePoint.y);
+						image(curveCanvas, 0, 0, window.innerWidth, window.innerHeight);
+					}
+					lastCurvePoint = curvePoint;
+					return;
+				}
+
+				//Draw points and linearly interpolate between them
+				for(var i = 0; i < controlPoints.length; i++){
+					var pointA = controlPoints[i];
+					if(drawPointsControl.checked)drawPoint(pointA, [0, 0, 0]);
+					
+					//If there is a point to interpolate to
+					if(i > 0){
+						var pointB = controlPoints[i - 1]; 
+						if(drawLinesControl.checked)line(pointA.x, pointA.y, pointB.x, pointB.y);
+						var pointC = pointB.copy().sub(pointA).copy();
+						pointC.mult(t);
+						pointC.add(pointA);
+						nextPoints.push(pointC);
+					}
+				}
+				bezierCurve(nextPoints); 
+			};
+
+			var frames = 0;
+			var setup = function(){
+				canvas = createCanvas(window.innerWidth, window.innerHeight);
+				curveCanvas = createGraphics(window.innerWidth, window.innerHeight);
+				canvas.canvas.onmousedown = function(){
+					clearCanvas();
+					points.push(createVector(mouseX, mouseY));
+				};
+				clearButton.onclick = function(){
+					points = [];
+				};
+			};
+
+			var draw = function(){
+				
+				t += 0.005;
+				if(t >= 1){
+					clearCanvas();
+				}
+				clear();
+				var i = 0;
+				bezierCurve(points);
+			};
+		</script>
+	</body>
+</html>
