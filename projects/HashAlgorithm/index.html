@@ -1,0 +1,236 @@
+<html>
+	<head>
+		<title>Hash Algorithm</title>
+		<style>
+		#content{
+			background-color: rgb(240, 240, 240);
+			height: 100%;
+			width: 900px;
+			margin-left: auto;
+			margin-right: auto;
+			padding: 40px;
+		}
+
+		#input_wrapper{
+			width: 400px;
+		}
+
+		.data{
+			word-wrap: break-word;
+			width: 600px;
+			height: 300px;
+			background-color: rgb(255, 255, 255);
+			overflow: scroll;
+		}
+
+		</style>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	</head>
+	<body>
+		<div id="content">
+		</div>
+
+		<script>
+
+			var message = "A Test";
+
+			var h0 = "01100111010001010010001100000001";
+			var h1 = "11101111110011011010101110001001";
+			var h2 = "10011000101110101101110011111110";
+			var h3 = "00010000001100100101010001110110";
+			var h4 = "11000011110100101110000111110000";
+
+			var hash = function(input){
+
+				input = ascii(input);
+				input = binary(input);
+				input = pad_block(input);
+				input = chunk(input);
+				input = compress(input);
+
+				console.log(input);
+
+				return input;
+			};
+
+			var ascii = function(input){
+
+				var ascii = [];
+
+				for(var i = 0; i < input.length; i++){
+					ascii.push(input.charCodeAt(i));
+				}
+
+				return ascii;
+			};
+
+			var binary = function(input){
+
+				var binary = [];
+
+				for(var i = 0; i < input.length; i++){
+					binary.push("0" + input[i].toString(2));
+				}
+
+				return binary.join("") + "1";
+			};
+
+			var pad_block = function(input){
+
+				var originalLength = input.length;
+				var diff = 448 - input.length;
+
+				for(var i = 0; i < diff; i++){
+					input += "0";
+				}
+
+				var binaryLength = originalLength.toString(2);
+				var lengthString = "";
+				var padLength = 64 - binaryLength.length;
+
+				for(var j = 0; j < padLength; j++){
+					lengthString += "0";
+				}
+
+				lengthString += binaryLength;
+				
+				return input + lengthString;
+			};
+
+			var chunk = function(input){
+
+				var words = [];
+
+				for(var i = 0; i < 16; i++){
+						
+					var word = "";
+
+					for(var j = 0; j < 32; j++){
+						word += input[i * 32 + j];
+					}
+
+					words.push(word);
+				}
+
+				return words;
+			};
+
+			var compress = function(input){
+
+				for(var i = 16; i <= 79; i++){
+					var out = "";
+
+					var a = input[i - 3];
+					var b = input[i - 8];
+					var c = input[i - 14];
+					var d = input[i - 16];
+
+					out = xor(xor(xor(a, b), c), d);
+					out = leftRotate(out, 1);
+
+					input.push(out);
+				}
+				
+				var a = h0; 	  		 
+				var b = h1;
+				var c = h2;
+				var d = h3;
+				var e = h4;
+				var k = null;
+				var f = null;
+
+
+				for(var j = 0; j < 80; j++){
+					if(j >= 0 && j < 20){
+						f = or(and(b, c), and(not(b), c));
+						k = "01011010100000100111100110011001";
+					}
+
+					if(j >= 20 && j < 40){
+						f = xor(xor(b, c), d);
+						k = "01101110110110011110101110100001";
+					}
+
+					if(j >= 40 && j < 60){
+						f = or(or(and(b, c), and(b, d)), and(c, d));
+						k = "10001111000110111011110011011100";
+					}
+
+					if(j >= 60 && j < 80){
+						f = xor(xor(b, c), d);
+						k = "11001010011000101100000111010110";
+					}
+
+					var tmp = leftRotate(a, 5) 
+				}
+
+				return input;
+			};
+
+			var xor = function(a, b){
+
+				var result = "";
+
+				for(var i = 0; i < a.length; i++){
+					result += a[i] ^ b[i];
+				}
+
+				return result;
+			};
+
+			var or = function(a, b){
+
+				var result = "";
+
+				for(var i = 0; i < a.length; i++){
+					result += a[i] | b[i];
+				}
+
+				return result;
+			};
+
+			var and = function(a, b){
+
+				var result = "";
+
+				for(var i = 0; i < a.length; i++){
+					result += a[i] & b[i];
+				}
+
+				return result;
+			};
+
+			var not = function(a){
+
+				var result = "";
+
+				for(var i = 0; i < a.length; i++){
+					result += ~a[i];
+				}
+
+				return result;
+			};
+
+			var leftRotate = function(input, n){
+
+				input = input.split("");
+
+				for(var i = 0; i < n; i++){
+					var tmp = input[0];
+					input.shift();
+					input.push(tmp);
+				}
+				
+				input = input.join("");
+
+				return input;
+			};
+
+			hash(message);
+
+		</script>
+	</body>
+</html>

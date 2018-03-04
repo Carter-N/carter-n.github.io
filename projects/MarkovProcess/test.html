@@ -1,0 +1,105 @@
+<html>
+	<head>
+		<title>random</title>
+		<style>
+			canvas{
+				position: absolute;
+			}
+
+			body{
+				margin: 0px;
+			}
+		</style>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+	</head>
+	<body>
+		
+		<script>
+
+			var values = [];
+			var sortedValues = [];
+			var nvalues = 100;
+			var maxVal = 100;
+			var minVal = 0;
+			var barwidth = window.innerWidth / nvalues;
+			var f = 0;
+			var iterator = 0; 
+			var currentI = 0;
+			var currentJ = 0;
+
+			var run = false;
+
+			for(var i = 0; i < nvalues; i++){
+				values.push((maxVal - minVal) / 2);
+			}
+
+			function keyTyped(){
+				if(keyCode == 32){
+					run = !run;
+				}
+			}
+
+			function mousePressed(){
+				if(!run)update();
+			}
+
+			function setup(){
+				createCanvas(window.innerWidth, window.innerHeight);
+			}
+
+			function windowResized() {
+				resizeCanvas(windowWidth, windowHeight);
+			}
+
+			function update(){
+				var j = Math.floor(Math.random() * nvalues);
+				if(values[iterator] > minVal && values[iterator] < maxVal){
+					values[iterator] -= 1;
+					values[j] += 1;
+				}
+				currentI = iterator;
+				currentJ = j;
+				iterator++;
+				sortedValues = values.slice().sort();
+			}
+
+			function draw(){
+
+				f += 1;
+
+				background(255);
+
+				if(f % 1 == 0 && run){
+					update();
+
+					if(iterator >= nvalues){
+						iterator = 0;
+					}
+				}
+
+				for(var i = 0; i < nvalues; i++){
+					fill(0);
+					stroke(0, 0, 0, 255);
+					var barHeight = (values[i] / (maxVal - minVal)) * window.innerHeight;
+					rect(barwidth * i, window.innerHeight - barHeight, barwidth, barHeight);
+
+					
+					barHeight = (sortedValues[i] / (maxVal - minVal)) * window.innerHeight;
+					fill(255, 0, 0, 200);
+					stroke(255, 0, 0, 200);
+					rect(barwidth * i, window.innerHeight - barHeight, barwidth, window.innerHeight / (maxVal - minVal));
+				}
+
+				fill(0, 255, 0, 80);
+				stroke(0, 255, 0, 80);
+				barHeight = (values[currentI] / (maxVal - minVal)) * window.innerHeight;
+				rect(barwidth * currentI, window.innerHeight - barHeight, barwidth, barHeight);
+
+				fill(0, 0, 255, 80);
+				stroke(0, 0, 255, 80);
+				barHeight = (values[currentJ] / (maxVal - minVal)) * window.innerHeight;
+				rect(barwidth * currentJ, window.innerHeight - barHeight, barwidth, barHeight);
+			}
+		</script>
+	</body>
+</html>
