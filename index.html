@@ -18,69 +18,59 @@
     <body>
 
         <div class="container">
-            <!--<h2>Carter Nielsen</h2>-->
-
             <div id="header">
-                <h1> Carter Nielsen Research </h1>
+                <span id="header-text">CAPSTONE Research Project 2019</span>
             </div>
 
             <ul class="nav nav-tabs">
-                <li class="active menu-item"><a data-toggle="tab" href="#capstone">Capstone Research</a></li>
-                <li class="menu-item"><a data-toggle="tab" href="#project-gallery">Other Projects</a></li>
-                <li class="menu-item"><a data-toggle="tab" href="#about-me">About Me</a></li>
-                <li class="menu-item"><a data-toggle="tab" href="#github">Github</a></li>
+                <li class="active menu-item"><a data-toggle="tab" href="#research">Project</a></li>
+                <li class="menu-item"><a data-toggle="tab" href="#artifacts">Artifacts</a></li>
+                <li class="menu-item"><a data-toggle="tab" href="#blog">Blog</a></li>
+                <li class="menu-item"><a data-toggle="tab" href="#about">About</a></li>
             </ul>
-            <div class="tab-content">
-                <div id="capstone" class="tab-pane fade in active">
-                    <h3>CAPSTONE</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <h1><a>Proposal</a></h1>
-                    <h1><a>Research</a></h1>
-                    <h1><a>Blog</a></h1>
-                </div>
-                <div id="project-gallery" class="tab-pane fade">
-                    <div id="MarkovProcess" class="project col-sm-4">
-                        <a href="projects/MarkovProcess/index.html">
-                            <img src="projects/MarkovProcess/img.png" class="img-responsive">
-                        </a>
-                        <div class="description">
-                            <h3 class="desc-title">Markov Chain:</h3>
-                            <p class="desc-text">A visual example of a markov chain observable in random wealth redistribution.</p>
-                        </div>
-                    </div>
+            <div id="content-container">
+                <div class="tab-content">
+                    <div id="research" class="tab-pane fade in active">
+                        <h1>Project Proposal</h1>
 
-                    <!--<div id="GameOfLife" class="project col-lg-4 col-md-4 col-sm-4 col-xs-6">
-                        <a href="projects/GameOfLife/index.html">
-                            <img src="projects/GameOfLife/img.png" class="img-responsive">
-                        </a>
-                        <div class="description">
-                            <h3 class="desc-title">Conway's Game of Life:</h3>
-                            <p class="desc-text">An implementation of Conway's game of life with cellular autonoma examples.</p>
-                        </div>
-                    </div>
+                        <p>
+                            To apply evolutionary machine learning algorithms to the problem of creating an autonomous vehicle in a simulated enviroment.
+                        </p>
 
-                    <div id="FourierSeries" class="project col-lg-4 col-md-4 col-sm-4 col-xs-6">
-                        <a href="projects/FourierSeries/index.html">
-                            <img src="projects/FourierSeries/img.png" class="img-responsive">
-                        </a>
-                        <div class="description">
-                            <h3 class="desc-title">Fourier Series:</h3>
-                            <p class="desc-text">Interactive visualization of the general fourier series.</p>
-                        </div>
-                    </div>-->
-                </div>
-                <div id="about-me" class="tab-pane fade">
-                    <h3>About Me</h3>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-                </div>
-                <div id="github" class="tab-pane fade">
-                    <h3>Github</h3>
-                    <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                        <h1>Research Questions</h1>
+
+                        <p>
+                            Can evolutionary learning be applied successfully to self driving vehicles? 
+                            <br>
+                            Will neuroevolution drive the future of autonomous vehicles?
+                            <br>
+                            Could evolutionary hyperparameter optimization reduce the training requirements of advanced autonomous vehicle AI?
+                            <br> 
+                        </p>
+
+                        <h1>Thesis</h1>
+                        <p>
+                            By applying neuroevolutionary augmenting topologies to a simulated self driving agent. The training hardware requirements and model size will be drastically reduced.
+                        </p>
+                    </div>
+                    <div id="artifacts" class="tab-pane fade">
+                        <br><br>
+                        <h3><a target="_blank" href="http://nn.cs.utexas.edu/downloads/papers/stanley.ec02.pdf">Evolving Neural Networks through Augmenting Topologies</a></h3><hr>
+                        <p>
+                            Contrasts fixed topology networks with evolving ones. Claims increased performance is based on speciation to protect innovation in structure and incremental structure evolution. Broad overview of NEATs, related data structures and experimental findings on widely used datasets.
+                        </p>
+                        <br><br>
+                        <h3><a target="_blank" href="https://arxiv.org/abs/1806.08099">Lamarckian Evolution of Convolutional Neural Networks</a></h3><hr>
+                        <p>
+                            Lamarckian evolution of convolutional neural networks, assumes convolutional networks are best for image classification. Contains tons of information on the shortcomings of traditional NEATS and how they can be improved with higher functioning neurons to produce better results. Presents promising findings on the viability of NEATs with convolutions for image classification applications. Also describes evolutionary niching, where initially worse solutions are saved and continued to be evolved and evaluated again.
+                        </p>
+                    </div>
+                    <div id="github" class="tab-pane fade">
+                        <h3>Github</h3>
+                        <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                    </div>
                 </div>
             </div>
         </div>
-
-
-        <!--Project Content-->
     </body>
 </html>
