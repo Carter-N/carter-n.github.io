@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Carter N</title>
+        <title>Carter N Research</title>
 
         <meta charset="utf-8">
 
@@ -23,7 +23,8 @@
             </div>
 
             <ul class="nav nav-tabs">
-                <li class="active menu-item"><a data-toggle="tab" href="#research">Project</a></li>
+                <li class="active menu-item"><a data-toggle="tab" href="#research">Proposal</a></li>
+                <li class="menu-item"><a data-toggle="tab" href="#deliverables">Deliverables</a></li>
                 <li class="menu-item"><a data-toggle="tab" href="#artifacts">Artifacts</a></li>
                 <li class="menu-item"><a data-toggle="tab" href="#blog">Blog</a></li>
                 <li class="menu-item"><a data-toggle="tab" href="#about">About</a></li>
@@ -31,63 +32,90 @@
             <div id="content-container">
                 <div class="tab-content">
                     <div id="research" class="tab-pane fade in active">
-                        <h1>Project Proposal</h1>
+                        <h1>Project</h1>
 
                         <p>
-                            To apply evolutionary machine learning algorithms to the problem of creating an autonomous vehicle in a simulated enviroment.
+                            To apply novel evolutionary learning techniques to the problem of creating a fully autonomous vehicle in a simulated enviroment.
                         </p>
+                        <hr>
 
                         <h1>Research Questions</h1>
 
                         <p>
-                            Can evolutionary learning be applied successfully to self driving vehicles? 
+                            -Can evolutionary learning be applied successfully to self driving vehicles? With the challenge of high input dimensionality? 
+                            <br><br>
+                            -How will a sucsessful unsupervised learning model affect the future development of self driving vehicle algorithms?
+                            <br><br>
+                            -Could hyperparameter optimization reduce the training requirements of advanced autonomous vehicle AI and thus create more optimized models?
                             <br>
-                            Will neuroevolution drive the future of autonomous vehicles?
-                            <br>
-                            Could evolutionary hyperparameter optimization reduce the training requirements of advanced autonomous vehicle AI?
-                            <br> 
                         </p>
+                        <hr>
 
                         <h1>Thesis</h1>
                         <p>
-                            By applying neuroevolutionary augmenting topologies to a simulated self driving agent. The training hardware requirements and model size will be drastically reduced.
+                            By applying neuroevolutionary augmenting topologies to a simulated self driving agent, the training hardware requirements and model size will be drastically reduced. This will result in self driving algorithms becoming more effective and more acsessible.
                         </p>
-
-                        <h1>Literature Review</h1>
-                        <p><a href="https://docs.google.com/document/d/1E1SKDx2pQlVVhm9B67KR9ydz4r4AJG2znK4F5a7b1kw/edit?usp=sharing" target="_blank">Document link</a></p>
-                        <br><br>
-                        <h1>Outline</h1>
-                        <p><a href="https://docs.google.com/document/d/1YljmwKTZbLPMVLwkEray5-nWK7s0elf_iA3z6AIJ1n4/edit?usp=sharing" target="_blank">Document link</a></p>
+                    </div>
+                    <div id="deliverables" class="tab-pane fade">
+                        <a href="https://docs.google.com/document/d/1Y4jD1sJVqT3V-u0x28azZEI1QgHaXWNWuDBhv7dYyO8/edit?usp=sharing" target="_blank">
+                            <h1>Action Plan</h1>
+                        </a>
+                        <br><hr>
+                        <a href="https://docs.google.com/document/d/1E1SKDx2pQlVVhm9B67KR9ydz4r4AJG2znK4F5a7b1kw/edit?usp=sharing" target="_blank">
+                            <h1>Outline</h1> 
+                        </a>
+                        <br><hr>
+                        <a href="https://docs.google.com/document/d/1YljmwKTZbLPMVLwkEray5-nWK7s0elf_iA3z6AIJ1n4/edit?usp=sharing" target="_blank">
+                            <h1>Literature Review</h1>
+                        </a>
                     </div>
                     <div id="artifacts" class="tab-pane fade">
+
                         <br><br>
+
                         <h3><a target="_blank" href="http://nn.cs.utexas.edu/downloads/papers/stanley.ec02.pdf">Evolving Neural Networks through Augmenting Topologies</a></h3>
                         <p>
-                            Contrasts fixed topology networks with evolving ones. Claims increased performance is based on speciation to protect innovation in structure and incremental structure evolution. Broad overview of NEATs, related data structures and experimental findings on widely used datasets.
+                            Contrasts fixed topology networks with evolving ones. Claims increased performance is based on speciation to protect innovation in structure and incremental structure evolution. Broad overview of NEATs, related data structures and experimental findings on widely used datasets. Proposes NEATS make good candidates for featureless high dimensional enviroments. 
                         </p><hr>
+
                         <br><br>
+
                         <h3><a target="_blank" href="https://arxiv.org/abs/1806.08099">Lamarckian Evolution of Convolutional Neural Networks</a></h3>
                         <p>
-                            Lamarckian evolution of convolutional neural networks, assumes convolutional networks are best for image classification. Contains tons of information on the shortcomings of traditional NEATS and how they can be improved with higher functioning neurons to produce better results. Presents promising findings on the viability of NEATs with convolutions for image classification applications. Also describes evolutionary niching, where initially worse solutions are saved and continued to be evolved and evaluated again.
+                            Lamarckian evolution of convolutional neural networks, assumes convolutional networks are best for image classification. Contains a lot of information on the shortcomings of traditional NEATS and how they can be improved with higher functioning neurons to produce better results. Presents promising findings on the viability of NEATs with convolutions for image classification applications. Also describes evolutionary niching, where initially worse solutions are saved and continued to be evolved and evaluated again.
                         </p><hr>
+
                         <br><br>
+
                         <h3><a target="_blank" href="https://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf">End to End Learning for Self-Driving Cars</a></h3>
                         <p>
-                            Complete description of techniques and models used by Nvidia to create a simple fully autonomous vehicle using supervised data of specialized routes. Presents promising accuracy results for the technique used.
+                            Complete description of techniques and models used by Nvidia to create a simple fully autonomous vehicle using supervised data of specialized routes. Presents promising accuracy results for the technique used. Used a fixed topology network of 3 convolutional layers and five fully connected trained with the ADAM optimizer. Supervised learning is not the focus but thus contains good information on the workflow nescassary.
                         </p><hr>
+
                         <br><br>
+
                         <h3><a target="_blank" href="http://www.ra.cs.uni-tuebingen.de/mitarb/streiche/publications/Introduction_to_Evolutionary_Algorithms.pdf">Introduction to Evolutionary Algorithms</a></h3>
                         <p>
                             Provides a complete indepth look at evolutionary learning techniques including speciacion, niching, mutation operators, and computational space required to execute this style of learning in a reasonable amount of time.
                         </p><hr>
+                        
                         <br><br>
-                        <h3><a target="_blank" href="https://arxiv.org/abs/1806.08099">Lamarckian Evolution of Convolutional Neural Networks</a></h3>
+                        
+                        <h3><a target="_blank" href="https://arxiv.org/pdf/1707.03902.pdf">Autoencoder-augmented Neuroevolution for Visual Doom Playing</a></h3>
                         <p>
-                            Lamarckian evolution of convolutional neural networks, assumes convolutional networks are best for image classification. Contains tons of information on the shortcomings of traditional NEATS and how they can be improved with higher functioning neurons to produce better results. Presents promising findings on the viability of NEATs with convolutions for image classification applications. Also describes evolutionary niching, where initially worse solutions are saved and continued to be evolved and evaluated again.
+                            Very relevant exploration of neuroevolution applied to high dimensional problem space that this strategy has traditionally struggled with. Their proposed solution is an autoencoder to limit the evolutionary dimensionality. Their workflow and process is very relavant and I plan on using elements of it to create the self driving algorithm.
                         </p><hr>
+
+                        <br><br>
+                        
+                        <h3><a target="_blank" href="https://www.researchgate.net/profile/Pier_Luca_Lanzi/publication/220740175_Evolving_competitive_car_controllers_for_racing_games_with_neuroevolution/links/5a65e3b94585158bca52c135/Evolving-competitive-car-controllers-for-racing-games-with-neuroevolution.pdf">Evolving competitive car controllers for racing games with neuroevolution</a></h3>
+                        <p>
+                            Expiriment involving creating competitive driving algorithms with NEATS, their enviroment unlike the DOOM playing one, intrinsically had low input dimensionality. They did not need to adress high input dimensionality but they did create very relavant information on the implementation of NEATs.
+                        </p><hr>
+
+                        
                     </div>
                     <br><br>
-                    <a href="https://docs.google.com/document/d/1L4Wo3TS3ySikIokzR7ZzuNNehboxuJB_CNOQ9Bq-mKY/edit?usp=sharing" target="_blank">Bibliography notes</a>
                 </div>
             </div>
         </div>
