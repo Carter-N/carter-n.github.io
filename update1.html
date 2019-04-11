@@ -1,0 +1,41 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Progress Update #1.md</title><style></style></head><body id="preview">
+<h1><a id="Progress_Update_1_0"></a>Progress Update #1</h1>
+<p>March 11, 2019</p>
+<h2><a id="Goals_3"></a>Goals</h2>
+<p>My goals for the first week were to create an autoencoder model that could compress live video from a forward facing camera on a car. The autoencoder will be used to compress images so a secondary model can make steering descisions on a smaller input. I broke down the goal into these few points:</p>
+<ul>
+<li>Create a small dataset of highway driving images</li>
+<li>Create a initial model to be used as an autoencoder</li>
+<li>Train the model and observe results</li>
+</ul>
+<h2><a id="Getting_Started_11"></a>Getting Started</h2>
+<p>I began by setting up the working enviroment. I knew I’d be using python as the primary language for developing this as it is known for rapid prototyping abilities and a large variety of machine learning libraries and resources. I will be using keras with a tensorflow backend.</p>
+<h2><a id="Dataset_collection_15"></a>Dataset collection</h2>
+<p>For the initial dataset I aimed to collect atleast 5000 images of size 200 by 200 pixels. I created a script that would capture a section of the screen on a computer. For the data to be useful in a machine learning model the image had to be converted to grayscale and resized to the correct size.</p>
+<p>Here are some samples of collected images being used in the dataset. They have been resized and converted to grayscale.<br>
+<img src="https://drive.google.com/uc?id=15YnqiPHwj8m7tB3t0fBYP7Mm4NZK35Jn" alt="alt text"></p>
+<h2><a id="Model_21"></a>Model</h2>
+<p>The model I will be using will be a type of autoencoder. As a brief overview an autoencoder works by compressing an image down to a smaller but meaningful representation. After compression it rebuilds the image from the smaller model only. The accuracy of the autoencoder is measured by the difference in original image and its reconstruction. Heres a general autoencoder:</p>
+<p><img src="https://blog.keras.io/img/ae/autoencoder_schema.jpg" alt="alt text" title="Autoencoder diagram"></p>
+<p>The graph of a traditional autoencoder on a very small imput may look like this:</p>
+<p><img src="https://www.jeremyjordan.me/content/images/2018/03/Screen-Shot-2018-03-07-at-8.24.37-AM.png" alt="alt text" title="Network Diagram"></p>
+<p>This graph has 6 inputs and 6 outputs, with the layers inbetween there are a total of 72 connections between neurons. The images in the collected dataset are 200x200 meaning there are 40000 inputs. With the layers inbetween there would be over 140000000 connections between neurons making it impossible to simulate on my computer in a reasonable amount of time. Luckily this problem has a very effective solution, layers that are specialized for images and large inputs.</p>
+<h3><a id="Convolutional_autoencoders_32"></a>Convolutional autoencoders</h3>
+<p>Convolutional layers work by applying a small number of connections over an full image analyzing small segments of the larger input.</p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/0*-1Pad7loK_dFOUvS.png" alt="alt text"></p>
+<p>As seen in the picture only small segments of a large image are analyzed at a time. With this method very large inputs can be processed with little to no use of memory. Only about 25 neurons and connections would be simulated at a time.</p>
+<p>I found a intresting visualization of convolutional layers in action here: <a href="http://scs.ryerson.ca/~aharley/vis/conv/">http://scs.ryerson.ca/~aharley/vis/conv/</a></p>
+<p>You can also read more about convolutional neural networks here <a href="https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53">https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53</a></p>
+<h2><a id="Results_43"></a>Results</h2>
+<p>After training the model for about 6 hours on my CPU which was far from optimal. I reached a usable model with three layers of convolutions. This is the graph of the model I used:</p>
+<p><img src="https://drive.google.com/uc?id=1KtHf94GjblmMJRJMFijdlWiiN24XN8l5" alt="alt text"></p>
+<p>This model was able to produce these results after training.</p>
+<p><img src="https://drive.google.com/uc?id=1B6KgsAqksj-7gOSslK-QX_Clwp9F3Efk" alt="alt text"></p>
+<p>Here are some more randomly sampled results:<br>
+<img src="https://drive.google.com/uc?id=1be0DZtKuseyB1dlGy9N9ckan7acYewc7" alt="alt text"></p>
+<p>The model does well to reconstruct landscape features like hills, trees and even bridges / road signs however the structure of the road is not preserved well. I beleive this model can be improved on with a larger dataset and larger model allowing more features to be shown. I also plan to keep the images in color however this will triple the size of the dataset used.</p>
+<h2><a id="Conclusions_57"></a>Conclusions</h2>
+<p>The week was very sucsessfull in terms of progress and I think I acheived the goals I set out, I hope to continue to improve this model with color and acsess larger model complexity with GPU acceleration. This is just a starting point to the project but a lot of important milestones have been reached.</p>
+<p>After making the nescassary improvements to the model I will begin work on the policy making network which is the network that makes descisions about steering and controls.</p>
+
+</body></html>
